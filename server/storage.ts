@@ -231,12 +231,33 @@ export class MemStorage implements IStorage {
 
     samplePortfolios.forEach(portfolio => {
       const id = this.currentPortfolioId++;
-      this.portfolios.set(id, { ...portfolio, id, views: Math.floor(Math.random() * 5000) + 500 });
+      const portfolioData: Portfolio = {
+        ...portfolio,
+        id,
+        views: Math.floor(Math.random() * 5000) + 500,
+        cuisine: portfolio.cuisine || null,
+        tags: portfolio.tags || null,
+        techniques: portfolio.techniques || null,
+        ingredients: portfolio.ingredients || null,
+        timeRequired: portfolio.timeRequired || null,
+        difficulty: portfolio.difficulty || null,
+        story: portfolio.story || null
+      };
+      this.portfolios.set(id, portfolioData);
     });
 
     sampleCaseStudies.forEach(caseStudy => {
       const id = this.currentCaseStudyId++;
-      this.caseStudies.set(id, { ...caseStudy, id });
+      const caseStudyData: CaseStudy = {
+        ...caseStudy,
+        id,
+        methodology: caseStudy.methodology || null,
+        results: caseStudy.results || null,
+        insights: caseStudy.insights || null,
+        experimentsCount: caseStudy.experimentsCount || null,
+        publishedAt: caseStudy.publishedAt || null
+      };
+      this.caseStudies.set(id, caseStudyData);
     });
   }
 
@@ -290,7 +311,18 @@ export class MemStorage implements IStorage {
 
   async createPortfolio(portfolio: InsertPortfolio): Promise<Portfolio> {
     const id = this.currentPortfolioId++;
-    const newPortfolio: Portfolio = { ...portfolio, id, views: 0 };
+    const newPortfolio: Portfolio = { 
+      ...portfolio, 
+      id, 
+      views: 0,
+      cuisine: portfolio.cuisine || null,
+      tags: portfolio.tags || null,
+      techniques: portfolio.techniques || null,
+      ingredients: portfolio.ingredients || null,
+      timeRequired: portfolio.timeRequired || null,
+      difficulty: portfolio.difficulty || null,
+      story: portfolio.story || null
+    };
     this.portfolios.set(id, newPortfolio);
     return newPortfolio;
   }
