@@ -9,19 +9,19 @@ import SearchFilterBar from '@/components/search-filter-bar';
 import PortfolioCard from '@/components/portfolio-card';
 import CaseStudyCard from '@/components/case-study-card';
 import AiRecommendations from '@/components/ai-recommendations';
-import { api } from '@/lib/api';
 import { Search, Sparkles, Brain, Lightbulb, TrendingUp, Grid, List } from 'lucide-react';
+import type { Portfolio, CaseStudy } from '@shared/schema';
 
 export default function Home() {
   const [filters, setFilters] = useState<{ category?: string; cuisine?: string; skillLevel?: string; search?: string }>({});
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
-  const { data: portfolios, isLoading: portfoliosLoading } = useQuery({
-    queryKey: [api.portfolios.getAll(filters)],
+  const { data: portfolios, isLoading: portfoliosLoading } = useQuery<Portfolio[]>({
+    queryKey: ['/api/portfolios', filters],
   });
 
-  const { data: caseStudies, isLoading: caseStudiesLoading } = useQuery({
-    queryKey: [api.caseStudies.getAll()],
+  const { data: caseStudies, isLoading: caseStudiesLoading } = useQuery<CaseStudy[]>({
+    queryKey: ['/api/case-studies'],
   });
 
   const handleSearch = (query: string) => {
@@ -54,14 +54,19 @@ export default function Home() {
               Get AI-powered insights and recommendations tailored to your cooking style.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-primary text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-primary/90">
+              <Button 
+                className="bg-primary text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-primary/90"
+                onClick={() => document.getElementById('portfolios-section')?.scrollIntoView({ behavior: 'smooth' })}
+              >
                 <Search className="h-5 w-5 mr-2" />
                 Browse Portfolios
               </Button>
-              <Button variant="outline" className="border-2 border-primary text-primary px-8 py-4 rounded-xl text-lg font-semibold hover:bg-primary hover:text-white">
-                <Sparkles className="h-5 w-5 mr-2" />
-                AI Recommendations
-              </Button>
+              <Link href="/ai-tools">
+                <Button variant="outline" className="border-2 border-primary text-primary px-8 py-4 rounded-xl text-lg font-semibold hover:bg-primary hover:text-white">
+                  <Sparkles className="h-5 w-5 mr-2" />
+                  AI Recommendations
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -89,9 +94,11 @@ export default function Home() {
                 </div>
                 <h3 className="font-semibold text-lg mb-3">Smart Recipe Analysis</h3>
                 <p className="text-gray-600 mb-4">AI analyzes cooking techniques, ingredient combinations, and flavor profiles to suggest improvements.</p>
-                <Button variant="link" className="text-accent font-medium hover:underline p-0">
-                  Learn More →
-                </Button>
+                <Link href="/ai-tools">
+                  <Button variant="link" className="text-accent font-medium hover:underline p-0">
+                    Learn More →
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 
@@ -102,9 +109,11 @@ export default function Home() {
                 </div>
                 <h3 className="font-semibold text-lg mb-3">Personalized Suggestions</h3>
                 <p className="text-gray-600 mb-4">Get tailored portfolio recommendations based on your cooking style and preferences.</p>
-                <Button variant="link" className="text-primary font-medium hover:underline p-0">
-                  Explore →
-                </Button>
+                <Link href="/ai-tools">
+                  <Button variant="link" className="text-primary font-medium hover:underline p-0">
+                    Explore →
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 
@@ -115,9 +124,11 @@ export default function Home() {
                 </div>
                 <h3 className="font-semibold text-lg mb-3">Skill Progression</h3>
                 <p className="text-gray-600 mb-4">Track your cooking journey with AI-powered skill assessment and growth recommendations.</p>
-                <Button variant="link" className="text-secondary font-medium hover:underline p-0">
-                  Get Started →
-                </Button>
+                <Link href="/ai-tools">
+                  <Button variant="link" className="text-secondary font-medium hover:underline p-0">
+                    Get Started →
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           </div>
@@ -125,7 +136,7 @@ export default function Home() {
       </section>
 
       {/* Portfolio Grid */}
-      <section className="py-16">
+      <section id="portfolios-section" className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-12">
             <div>
@@ -187,9 +198,11 @@ export default function Home() {
           )}
 
           <div className="text-center mt-12">
-            <Button className="bg-primary text-white px-8 py-4 rounded-xl font-semibold hover:bg-primary/90">
-              Load More Portfolios
-            </Button>
+            <Link href="/case-studies">
+              <Button className="bg-primary text-white px-8 py-4 rounded-xl font-semibold hover:bg-primary/90">
+                View All Portfolios
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
