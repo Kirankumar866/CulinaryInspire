@@ -275,10 +275,17 @@ export default function Home() {
             <div>
               <h4 className="font-semibold mb-4">Explore</h4>
               <ul className="space-y-2 text-gray-300">
-                <li><a href="#" className="hover:text-white transition-colors">Browse Portfolios</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Case Studies</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">AI Tools</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Community</a></li>
+                <li>
+                  <button 
+                    onClick={() => document.getElementById('portfolios-section')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="hover:text-white transition-colors"
+                  >
+                    Browse Portfolios
+                  </button>
+                </li>
+                <li><Link href="/case-studies" className="hover:text-white transition-colors">Case Studies</Link></li>
+                <li><Link href="/ai-tools" className="hover:text-white transition-colors">AI Tools</Link></li>
+                <li><Link href="/community" className="hover:text-white transition-colors">Community</Link></li>
               </ul>
             </div>
             <div>
