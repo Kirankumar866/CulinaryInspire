@@ -63,16 +63,8 @@ app.use((req, res, next) => {
   
   server.on('error', (err: any) => {
     if (err.code === 'EADDRINUSE') {
-      log(`Port ${port} is already in use. Attempting to restart...`);
-      setTimeout(() => {
-        server.close();
-        server.listen({
-          port,
-          host: "0.0.0.0",
-        }, () => {
-          log(`serving on port ${port}`);
-        });
-      }, 1000);
+      log(`Port ${port} is already in use. Exiting to allow restart...`);
+      process.exit(1);
     } else {
       throw err;
     }

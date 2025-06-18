@@ -345,7 +345,15 @@ export class MemStorage implements IStorage {
 
   async createCaseStudy(caseStudy: InsertCaseStudy): Promise<CaseStudy> {
     const id = this.currentCaseStudyId++;
-    const newCaseStudy: CaseStudy = { ...caseStudy, id };
+    const newCaseStudy: CaseStudy = { 
+      ...caseStudy, 
+      id,
+      methodology: caseStudy.methodology || null,
+      results: caseStudy.results || null,
+      insights: caseStudy.insights || null,
+      experimentsCount: caseStudy.experimentsCount || null,
+      publishedAt: caseStudy.publishedAt || null
+    };
     this.caseStudies.set(id, newCaseStudy);
     return newCaseStudy;
   }
@@ -357,12 +365,32 @@ export class MemStorage implements IStorage {
   async updateUserPreferences(preferences: InsertUserPreferences): Promise<UserPreferences> {
     const existing = Array.from(this.userPreferences.values()).find(p => p.userId === preferences.userId);
     if (existing) {
-      const updated = { ...existing, ...preferences };
+      const updated: UserPreferences = { 
+        ...existing, 
+        ...preferences,
+        userId: preferences.userId || null,
+        skillLevel: preferences.skillLevel || null,
+        preferredCuisines: preferences.preferredCuisines || null,
+        cookingStyle: preferences.cookingStyle || null,
+        timeAvailable: preferences.timeAvailable || null,
+        dietaryRestrictions: preferences.dietaryRestrictions || null,
+        favoriteIngredients: preferences.favoriteIngredients || null
+      };
       this.userPreferences.set(existing.id, updated);
       return updated;
     } else {
       const id = this.currentPreferencesId++;
-      const newPreferences: UserPreferences = { ...preferences, id };
+      const newPreferences: UserPreferences = { 
+        ...preferences, 
+        id,
+        userId: preferences.userId || null,
+        skillLevel: preferences.skillLevel || null,
+        preferredCuisines: preferences.preferredCuisines || null,
+        cookingStyle: preferences.cookingStyle || null,
+        timeAvailable: preferences.timeAvailable || null,
+        dietaryRestrictions: preferences.dietaryRestrictions || null,
+        favoriteIngredients: preferences.favoriteIngredients || null
+      };
       this.userPreferences.set(id, newPreferences);
       return newPreferences;
     }
@@ -374,7 +402,16 @@ export class MemStorage implements IStorage {
 
   async createAiRecommendation(recommendation: InsertAiRecommendation): Promise<AiRecommendation> {
     const id = this.currentRecommendationId++;
-    const newRecommendation: AiRecommendation = { ...recommendation, id };
+    const newRecommendation: AiRecommendation = { 
+      id,
+      type: recommendation.type,
+      title: recommendation.title,
+      description: recommendation.description,
+      matchScore: recommendation.matchScore,
+      userId: recommendation.userId ?? null,
+      reasoning: recommendation.reasoning ?? null,
+      targetId: recommendation.targetId ?? null
+    };
     this.aiRecommendations.set(id, newRecommendation);
     return newRecommendation;
   }
