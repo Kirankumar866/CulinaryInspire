@@ -17,6 +17,7 @@ export const portfolios = pgTable("portfolios", {
   skillLevel: text("skill_level").notNull(),
   cookName: text("cook_name").notNull(),
   cookTitle: text("cook_title").notNull(),
+  cookAvatarUrl: text("cook_avatar_url").notNull(),
   imageUrl: text("image_url").notNull(),
   views: integer("views").default(0),
   tags: text("tags").array(),
