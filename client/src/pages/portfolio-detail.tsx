@@ -98,7 +98,12 @@ export default function PortfolioDetail() {
           
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <div className="w-12 h-12 bg-gray-300 rounded-full mr-4" />
+              <img
+                src={portfolio.cookAvatarUrl}
+                alt={portfolio.cookName}
+                className="w-12 h-12 rounded-full mr-4 object-cover"
+                loading="lazy"
+              />
               <div>
                 <h3 className="font-semibold text-lg">{portfolio.cookName}</h3>
                 <p className="text-gray-600">{portfolio.cookTitle}</p>

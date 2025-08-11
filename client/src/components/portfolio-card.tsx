@@ -47,7 +47,12 @@ export default function PortfolioCard({ portfolio, onClick }: PortfolioCardProps
         
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <div className="w-8 h-8 bg-gray-300 rounded-full mr-3 flex-shrink-0" />
+            <img
+              src={portfolio.cookAvatarUrl}
+              alt={portfolio.cookName}
+              className="w-8 h-8 rounded-full mr-3 flex-shrink-0 object-cover"
+              loading="lazy"
+            />
             <div>
               <p className="font-medium text-sm">{portfolio.cookName}</p>
               <p className="text-gray-500 text-xs">{portfolio.cookTitle}</p>

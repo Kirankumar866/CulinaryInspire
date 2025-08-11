@@ -48,6 +48,7 @@ export default function SearchFilterBar({ onSearch, onFilter, onAiFilter }: Sear
               <SelectContent>
                 <SelectItem value="all">All Cuisines</SelectItem>
                 <SelectItem value="italian">Italian</SelectItem>
+                <SelectItem value="indian">Indian</SelectItem>
                 <SelectItem value="asian">Asian</SelectItem>
                 <SelectItem value="mediterranean">Mediterranean</SelectItem>
                 <SelectItem value="french">French</SelectItem>
